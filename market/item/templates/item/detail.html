@@ -1,14 +1,17 @@
+<!-- 
+The default page template for item app
+-->
 {% extends 'core/base.html' %}
 
 {% block title %} {{ item.name }} {% endblock %}
 
 {% block stuff %}
 <div class="grid grid-cols-5 gap-6">
-    <div class="col-span-3">
-        <img src="{{ item.image.url }}" class="rounded-xl">
+    <div class="col-span-2">
+        <img src="{{ item.image.url }}" class="rounded-xl max-w-sm max-h-96">
     </div>
 
-    <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
+    <div class="col-span-3 p-6 bg-gray-100 rounded-xl">
         <h1 class="mb-6 text-3xl">{{ item.name }}</h1>
         <p class="text-gray-500"><strong>Price: </strong>{{ item.price }}</p>
         <p class="text-gray-500"><strong>Seller: </strong>{{ item.created_by.username }}</p>
@@ -21,6 +24,26 @@
         {% endif %}
 
         <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact seller</a>
+    </div>
+</div>
+
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+    <h2 class="mb-12 text-2xl text-center">Related Items</h2>
+    <div class="grid grid-cols-3 gap-3">
+        {% for item in related_items %}
+            <div class="max-w-sm max-h-96">
+                <a href="{% url 'item:detail' item.id %}">
+                    <div >
+                        <img src="{{ item.image.url }}" class="rounded-t-xl max-w-sm max-h-8" alt=""> <!-- max-w-sm max-h-96 -->
+                    </div>
+
+                    <div class="p-6 bg-white rounded-b-xl">
+                        <h2 class="text-xl text-black">{{ item.name }}</h2>
+                        <p class="text-black font-bold"> Price: {{ item.price }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
