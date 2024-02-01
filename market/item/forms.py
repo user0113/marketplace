@@ -2,7 +2,7 @@ from django import forms
 
 from .models import Item
 
-INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
+fieldStyling = 'w-full py-4 px-6 rounded-xl border'
 
 class NewItemForm(forms.ModelForm):
     class Meta:
@@ -10,19 +10,19 @@ class NewItemForm(forms.ModelForm):
         fields = ('category', 'name', 'description', 'price', 'image',)
         widgets = {
             'category': forms.Select(attrs={
-                'class': INPUT_CLASSES
+                'class': fieldStyling
             }),
             'name': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
+                'class': fieldStyling
             }),
             'description': forms.Textarea(attrs={
-                'class': INPUT_CLASSES
+                'class': fieldStyling
             }),
             'price': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
+                'class': fieldStyling
             }),
             'image': forms.FileInput(attrs={
-                'class': INPUT_CLASSES
+                'class': fieldStyling
             })
         }
 
@@ -32,15 +32,15 @@ class EditItemForm(forms.ModelForm):
         fields = ('name', 'description', 'price', 'image', 'is_sold')
         widgets = {
             'name': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
+                'class': fieldStyling
             }),
             'description': forms.Textarea(attrs={
-                'class': INPUT_CLASSES
+                'class': fieldStyling
             }),
             'price': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
+                'class': fieldStyling
             }),
             'image': forms.FileInput(attrs={
-                'class': INPUT_CLASSES
+                'class': fieldStyling
             })
         }
