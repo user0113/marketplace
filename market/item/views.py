@@ -2,9 +2,35 @@
 The view for the item app
 """
 from django.contrib.auth.decorators import login_required
+"""
+Q allows and/or for queries
+"""
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import NewItemForm, EditItemForm
-from .models import Item
+from .models import Item, Category
+
+def items(request):
+    """
+    GET variable with name 'query', else return 1
+    """
+    query = request.GET.get('query', '')
+    categoryId = request.GET.get('category', 0)
+    categories = Category.objects.all()
+    items = Item.objects.filter(is_sold=False)
+
+    if categoryId:
+        items = items.filter(category_id=categoryId)
+
+    if query:
+        items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
+
+    return render(request, 'item/items.html', {
+        'items': items,
+        'query': query,
+        'categories': categories,
+        'categoryId': int(categoryId)
+    })
 
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
